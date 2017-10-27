@@ -12,6 +12,10 @@ class Auth implements AuthInterface
      */
     private $jasnyAuth;
 
+
+    /**
+     * Auth constructor.
+     */
     public function __construct(JasnyAuth $jasnyAuth)
     {
         $this->jasnyAuth = $jasnyAuth;
@@ -34,7 +38,7 @@ class Auth implements AuthInterface
         $this->jasnyAuth->logout();
     }
 
-    public function user():?UserInterface
+    public function user(): ?UserInterface
     {
         return $this->jasnyAuth->user();
     }
@@ -50,5 +54,4 @@ class Auth implements AuthInterface
             session_start();
         }
     }
-
 }

@@ -1,18 +1,11 @@
 <?php
 declare(strict_types=1);
 
-/**
- * Created by PhpStorm.
- * User: teteu
- * Date: 12/10/2017
- * Time: 21:35
- */
-
 namespace SONFin;
 
 
-use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use SONFin\Plugins\PluginInterface;
 use Zend\Diactoros\Response\RedirectResponse;
@@ -20,8 +13,8 @@ use Zend\Diactoros\Response\SapiEmitter;
 
 class Application
 {
-    private $serviceContainer;
-    private $befores = [];
+    private $_serviceContainer;
+    private $_befores = [];
 
     /**
      * Application constructor.
@@ -30,26 +23,26 @@ class Application
      */
     public function __construct(ServiceContainerInterface $serviceContainer)
     {
-        $this->serviceContainer = $serviceContainer;
+        $this->_serviceContainer = $serviceContainer;
     }
 
     public function service($name)
     {
-        return $this->serviceContainer->get($name);
+        return $this->_serviceContainer->get($name);
     }
 
     public function addService(string $name, $service): void
     {
         if (is_callable($service)) {
-            $this->serviceContainer->addLazy($name, $service);
+            $this->_serviceContainer->addLazy($name, $service);
         } else {
-            $this->serviceContainer->add($name, $service);
+            $this->_serviceContainer->add($name, $service);
         }
     }
 
     public function plugin(PluginInterface $plugin): void
     {
-        $plugin->register($this->serviceContainer);
+        $plugin->register($this->_serviceContainer);
     }
 
     public function get($path, $action, $name = null): Application
@@ -66,28 +59,27 @@ class Application
         return $this;
     }
 
-    public function redirect($path):ResponseInterface
+    public function redirect($path): ResponseInterface
     {
         return new RedirectResponse($path);
     }
 
-    public function route(string $name, array $params = []):ResponseInterface
+    public function route(string $name, array $params = []): ResponseInterface
     {
         $generator = $this->service('routing.generator');
         $path = $generator->generate($name, $params);
         return $this->redirect($path);
     }
 
-
-    public function before(callable $callback):Application
+    public function before(callable $callback): Application
     {
-        array_push($this->befores, $callback);
+        array_push($this->_befores, $callback);
         return $this;
     }
 
     protected function runBefores(): ?ResponseInterface
     {
-        foreach ($this->befores as $callback) {
+        foreach ($this->_befores as $callback) {
             $result = $callback($this->service(RequestInterface::class));
             if ($result instanceof ResponseInterface) {
                 return $result;
@@ -97,15 +89,12 @@ class Application
         return null;
     }
 
-
     public function start(): void
     {
         $route = $this->service('route');
         /**
-* 
-         *
- * @var ServerRequestInterface $request 
-*/
+         * @var ServerRequestInterface $request
+         */
         $request = $this->service(RequestInterface::class);
 
         if (!$route) {
@@ -129,9 +118,6 @@ class Application
     }
 
 
-    /**
-     * @param ResponseInterface $response
-     */
     protected function emitResponse(ResponseInterface $response): void
     {
         $emitter = new SapiEmitter();
@@ -140,5 +126,13 @@ class Application
 }
 
 /**
- * Lógica - função -> resposta ou redirocionamento
+ * Lógica - função -> resposta ou redirecionamento
+ * Lógica - função -> resposta ou redirecionamento
+ * Lógica - função -> resposta ou redirecionamento
+ * Lógica - função -> resposta ou redirecionamento ---
+ * Lógica - função -> resposta ou redirecionamento
+ * Lógica - função -> resposta ou redirecionamento
+ * Lógica - função -> resposta ou redirecionamento
+ * Lógica - função -> resposta ou redirecionamento
+ * Continuo o processamento
  */

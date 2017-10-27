@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Created by PhpStorm.
+ * User: Luiz
+ * Date: 29/03/2017
+ * Time: 12:09
+ */
 
 namespace SONFin;
 
@@ -11,7 +16,11 @@ class ServiceContainer implements ServiceContainerInterface
 
     private $container;
 
-
+    /**
+     * ServiceContainer constructor.
+     *
+     * @param $container
+     */
     public function __construct()
     {
         $this->container = new Container();

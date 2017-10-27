@@ -1,11 +1,11 @@
 <?php
-
 use Psr\Http\Message\ServerRequestInterface;
+
 
 $app
     ->get(
         '/login', function () use ($app) {
-            $view = $app->service('view.renderer');;
+            $view = $app->service('view.renderer');
             return $view->render('auth/login.html.twig');
         }, 'auth.show_login_form'
     )
@@ -15,7 +15,7 @@ $app
             $auth = $app->service('auth');
             $data = $request->getParsedBody();
             $result = $auth->login($data);
-            if (!$result) {
+            if(!$result) {
                 return $view->render('auth/login.html.twig');
             }
             return $app->route('category-costs.list');
@@ -34,7 +34,8 @@ $app->before(
         $auth = $app->service('auth');
         $routesWhiteList = [
         'auth.show_login_form',
-        'auth.login'
+        'auth.login',
+        'category-costs.list'
         ];
         if(!in_array($route->name, $routesWhiteList) && !$auth->check()) {
             return $app->route('auth.show_login_form');

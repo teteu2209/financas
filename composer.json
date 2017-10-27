@@ -1,9 +1,9 @@
 {
-    "name": "teteu/financas",
+    "name": "luiz/son-financas",
     "authors": [
         {
-            "name": "Matheus",
-            "email": "teteu2209@hotmail.com"
+            "name": "Luiz",
+            "email": "argentinaluiz@gmail.com"
         }
     ],
     "require": {
@@ -16,9 +16,9 @@
         "jasny/auth": "1.0.1",
         "vlucas/phpdotenv": "2.4"
     },
-    "autoload":{
-        "psr-4":{
-            "SONFin\\":"src/"
+    "autoload": {
+        "psr-4": {
+            "SONFin\\": "src/"
         }
     },
     "require-dev": {

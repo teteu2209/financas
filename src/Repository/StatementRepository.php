@@ -10,6 +10,7 @@ use SONFin\Models\BillReceive;
 class StatementRepository implements StatementRepositoryInterface
 {
 
+
     public function all(string $dateStart, string $dateEnd, int $userId): array
     {
         //select from bill_pays left join category_costs
@@ -25,8 +26,8 @@ class StatementRepository implements StatementRepositoryInterface
             ->where('user_id', $userId)
             ->get();
 
-        //$billPays -> Collection [0 => BillPay, 1 => BillPay..]
-        //$billReceives -> Collection [0 => BillReceive,1 => BillReceive..]
+        //Collection [0 => BillPay, 1 => BillPay..]
+        //Collection [0 => BillReceive,1 => BillReceive..]
 
         $collection = new Collection(array_merge_recursive($billPays->toArray(), $billReceives->toArray()));
         $statements = $collection->sortByDesc('date_launch');

@@ -1,6 +1,6 @@
 <?php
-
 use Psr\Http\Message\ServerRequestInterface;
+
 
 $app
     ->get(
@@ -45,7 +45,7 @@ $app
                 ]
             )->id;
             $repository->create($data);
-            return $app->redirect('/bill-pays');
+            return $app->route('bill-pays.list');
         }, 'bill-pays.store'
     )
     ->get(
@@ -98,8 +98,8 @@ $app
     ->get(
         '/bill-pays/{id}/show', function (ServerRequestInterface $request) use ($app) {
             $view = $app->service('view.renderer');
-            $id = $request->getAttribute('id');
             $repository = $app->service('bill-pay.repository');
+            $id = $request->getAttribute('id');
             $auth = $app->service('auth');
             $bill = $repository->findOneBy(
                 [

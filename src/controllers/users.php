@@ -1,6 +1,6 @@
 <?php
-
 use Psr\Http\Message\ServerRequestInterface;
+
 
 $app
     ->get(
@@ -23,19 +23,19 @@ $app
     )
     ->post(
         '/users/store', function (ServerRequestInterface $request) use ($app) {
-        $data = $request->getParsedBody();
-        $repository = $app->service('user.repository');
-        $auth = $app->service('auth');
-        $data['password'] = $auth->hashPassword($data['password']);
-        $repository->create($data);
-        return $app->redirect('/users');
-    }, 'users.store'
+            $data = $request->getParsedBody();
+            $repository = $app->service('user.repository');
+            $auth = $app->service('auth');
+            $data['password'] = $auth->hashPassword($data['password']);
+            $repository->create($data);
+            return $app->route('users.list');
+        }, 'users.store'
     )
     ->get(
         '/users/{id}/edit', function (ServerRequestInterface $request) use ($app) {
             $view = $app->service('view.renderer');
-            $id = $request->getAttribute('id');
             $repository = $app->service('user.repository');
+            $id = $request->getAttribute('id');
             $user = $repository->find($id);
             return $view->render(
                 'users/edit.html.twig', [
@@ -46,21 +46,21 @@ $app
     )
     ->post(
         '/users/{id}/update', function (ServerRequestInterface $request) use ($app) {
-        $repository = $app->service('user.repository');
-        $id = $request->getAttribute('id');
-        $data = $request->getParsedBody();
-        if(isset($data['password'])){
-            unset($data['password']);
-        }
-        $repository->update($id, $data);
-        return $app->route('users.list');
-    }, 'users.update'
+            $repository = $app->service('user.repository');
+            $id = $request->getAttribute('id');
+            $data = $request->getParsedBody();
+            if (isset($data['password'])) {
+                unset($data['password']);
+            }
+            $repository->update($id, $data);
+            return $app->route('users.list');
+        }, 'users.update'
     )
     ->get(
         '/users/{id}/show', function (ServerRequestInterface $request) use ($app) {
             $view = $app->service('view.renderer');
-            $id = $request->getAttribute('id');
             $repository = $app->service('user.repository');
+            $id = $request->getAttribute('id');
             $user = $repository->find($id);
             return $view->render(
                 'users/show.html.twig', [

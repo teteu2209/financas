@@ -3,9 +3,9 @@
         <label class="control-label">Categoria de Custo</label>
         <select class="form-control" value="{{ bill.category_cost_id }}"
                 name="category_cost_id">
-            {%  for category in categories %}
+            {% for category in categories%}
                 <option value="{{ category.id }}"
-                        {{ bill.category_cost_id is not null and bill.category_cost_id == category.id ? 'selected="selected"' : '' }}>
+                        {{ bill.category_cost_id is not null and bill.category_cost_id == category.id?'selected="selected"':'' }}>
                     {{ category.name }}
                 </option>
             {% endfor %}

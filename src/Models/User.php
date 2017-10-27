@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
-
 namespace SONFin\Models;
+
 
 use Illuminate\Database\Eloquent\Model;
 use Jasny\Auth\User as JasnyUser;
@@ -21,7 +21,7 @@ class User extends Model implements JasnyUser, UserInterface
      *
      * @return int|string
      */
-    public function getId(): int
+    public function getId():int
     {
         return (int)$this->id;
     }
@@ -31,7 +31,7 @@ class User extends Model implements JasnyUser, UserInterface
      *
      * @return string
      */
-    public function getUsername(): string
+    public function getUsername():string
     {
         return $this->email;
     }
@@ -41,7 +41,7 @@ class User extends Model implements JasnyUser, UserInterface
      *
      * @return string
      */
-    public function getHashedPassword(): string
+    public function getHashedPassword():string
     {
         return $this->password;
     }

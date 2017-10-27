@@ -24,5 +24,6 @@ class AuthPlugin implements PluginInterface
                 return new Auth($container->get('jasny.auth'));
             }
         );
+
     }
 }

@@ -38,11 +38,11 @@
                                         <td>{{ bill.name }}</td>
                                         <td>{{ bill.value | number_format(2,',','.') }}</td>
                                         <td>
-                                            <a href="{{ route('bill-receives.edit', {'id': bill.id}) }}">
+                                            <a href="{{ route('bill-receives.edit',{'id': bill.id}) }}">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </a>
                                             |
-                                            <a href="{{ route('bill-receives.show', {'id': bill.id}) }}">
+                                            <a href="{{ route('bill-receives.show',{'id': bill.id}) }}">
                                                 <span class="glyphicon glyphicon-remove"></span>
                                             </a>
                                         </td>

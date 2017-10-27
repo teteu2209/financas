@@ -2,12 +2,12 @@
 
 namespace SONFin\Auth;
 
-use Jasny\Auth;
+
 use Jasny\Auth\Sessions;
 use Jasny\Auth\User;
 use SONFin\Repository\RepositoryInterface;
 
-class JasnyAuth extends Auth
+class JasnyAuth extends \Jasny\Auth
 {
     use Sessions;
 
@@ -18,8 +18,6 @@ class JasnyAuth extends Auth
 
     /**
      * JasnyAuth constructor.
-     *
-     * @param RepositoryInterface $repository
      */
     public function __construct(RepositoryInterface $repository)
     {
@@ -46,6 +44,13 @@ class JasnyAuth extends Auth
      */
     public function fetchUserByUsername($username)
     {
-        return $this->repository->findByField('email', $username)[0];
+        $result = $this->repository->findByField('email', $username);
+        return count($result)? $result[0] : null;
+        //return $this->repository->findByField('email', $username)[0];
+    }
+
+    public function verifyCredentials($user, $password)
+    {
+        return isset($user) && password_verify($password, $user->getHashedPassword());
     }
 }

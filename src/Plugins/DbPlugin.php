@@ -1,15 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: teteu
- * Date: 14/10/2017
- * Time: 08:19
- */
+declare(strict_types=1);
 
 namespace SONFin\Plugins;
 
 
-use Psr\Container\ContainerInterface;
+use Interop\Container\ContainerInterface;
 use SONFin\Models\BillPay;
 use SONFin\Models\BillReceive;
 use SONFin\Models\CategoryCost;
@@ -32,13 +27,14 @@ class DbPlugin implements PluginInterface
 
         $container->add('repository.factory', new RepositoryFactory());
         $container->addLazy(
-            'category-cost.repository', function (ContainerInterface $container) {
-                return $container->get('repository.factory')->factory(CategoryCost::class);
-            }
-        );
-        $container->addLazy(
             'category-cost.repository', function () {
                 return new CategoryCostRepository();
+            }
+        );
+
+        $container->addLazy(
+            'bill-receive.repository', function (ContainerInterface $container) {
+                return $container->get('repository.factory')->factory(BillReceive::class);
             }
         );
 
@@ -55,15 +51,10 @@ class DbPlugin implements PluginInterface
         );
 
         $container->addLazy(
-            'bill-receive.repository', function (ContainerInterface $container) {
-                return $container->get('repository.factory')->factory(BillReceive::class);
-            }
-        );
-
-        $container->addLazy(
             'statement.repository', function () {
                 return new StatementRepository();
             }
         );
+
     }
 }

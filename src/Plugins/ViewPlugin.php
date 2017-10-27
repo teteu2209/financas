@@ -1,15 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: teteu
- * Date: 14/10/2017
- * Time: 08:19
- */
+declare(strict_types = 1);
 
 namespace SONFin\Plugins;
 
 
-use Psr\Container\ContainerInterface;
+use Interop\Container\ContainerInterface;
 use SONFin\ServiceContainerInterface;
 use SONFin\View\Twig\TwigGlobals;
 use SONFin\View\ViewRenderer;
@@ -36,15 +31,14 @@ class ViewPlugin implements PluginInterface
                         }
                     )
                 );
-
                 return $twig;
             }
         );
 
         $container->addLazy(
             'view.renderer', function (ContainerInterface $container) {
-                $twigEnvironment = $container->get('twig');
-                return new ViewRenderer($twigEnvironment);
+                $twigEnviroment = $container->get('twig');
+                return new ViewRenderer($twigEnviroment);
             }
         );
 

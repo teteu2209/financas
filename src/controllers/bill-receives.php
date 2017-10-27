@@ -1,6 +1,6 @@
 <?php
-
 use Psr\Http\Message\ServerRequestInterface;
+
 
 $app
     ->get(
@@ -31,14 +31,14 @@ $app
             $data['date_launch'] = dateParse($data['date_launch']);
             $data['value'] = numberParse($data['value']);
             $repository->create($data);
-            return $app->redirect('/bill-receives');
+            return $app->route('bill-receives.list');
         }, 'bill-receives.store'
     )
     ->get(
         '/bill-receives/{id}/edit', function (ServerRequestInterface $request) use ($app) {
             $view = $app->service('view.renderer');
-            $id = $request->getAttribute('id');
             $repository = $app->service('bill-receive.repository');
+            $id = $request->getAttribute('id');
             $auth = $app->service('auth');
             $bill = $repository->findOneBy(
                 [
@@ -74,8 +74,8 @@ $app
     ->get(
         '/bill-receives/{id}/show', function (ServerRequestInterface $request) use ($app) {
             $view = $app->service('view.renderer');
-            $id = $request->getAttribute('id');
             $repository = $app->service('bill-receive.repository');
+            $id = $request->getAttribute('id');
             $auth = $app->service('auth');
             $bill = $repository->findOneBy(
                 [

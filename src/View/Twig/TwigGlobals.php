@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: teteu
- * Date: 15/10/2017
- * Time: 20:30
+ * User: Luiz
+ * Date: 09/04/2017
+ * Time: 19:42
  */
 
 namespace SONFin\View\Twig;
@@ -18,10 +18,9 @@ class TwigGlobals extends \Twig_Extension implements \Twig_Extension_GlobalsInte
      */
     private $auth;
 
+
     /**
      * TwigGlobals constructor.
-     *
-     * @param AuthInterface $auth
      */
     public function __construct(AuthInterface $auth)
     {
@@ -31,8 +30,7 @@ class TwigGlobals extends \Twig_Extension implements \Twig_Extension_GlobalsInte
     public function getGlobals()
     {
         return [
-            'Auth'=>$this->auth
+            'Auth' => $this->auth
         ];
     }
 }
-

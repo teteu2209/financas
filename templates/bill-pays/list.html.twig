@@ -40,11 +40,11 @@
                                         <td>{{ bill.value | number_format(2,',','.') }}</td>
                                         <td>{{ bill.categoryCost.name }}</td>
                                         <td>
-                                            <a href="{{ route('bill-pays.edit', {'id': bill.id}) }}">
+                                            <a href="{{ route('bill-pays.edit',{'id': bill.id}) }}">
                                                 <span class="glyphicon glyphicon-pencil"></span>
                                             </a>
                                             |
-                                            <a href="{{ route('bill-pays.show', {'id': bill.id}) }}">
+                                            <a href="{{ route('bill-pays.show',{'id': bill.id}) }}">
                                                 <span class="glyphicon glyphicon-remove"></span>
                                             </a>
                                         </td>
